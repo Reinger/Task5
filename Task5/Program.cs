@@ -8,27 +8,20 @@ namespace Task5
 {
     class Program
     {
-        static int ReadInt()
+        static int ReadInt(string s)
         {
             int k;
             bool ok;
 
             do
             {
-                Console.Write("n=");
+                Console.Write("{0}",s);
                 ok = Int32.TryParse(Console.ReadLine(), out k);
                 if (!ok)
                 {
                     Console.WriteLine("Ошибка ввода. Нужно ввести целое число");
                     Console.ReadLine();
                     Console.Clear();
-                }
-                else if (k < 2)
-                {
-                    Console.WriteLine("Ошибка ввода. Нужно ввести целое число >=2");
-                    Console.ReadLine();
-                    Console.Clear();
-                    ok = false;
                 }
             } while (!ok);
 
@@ -37,7 +30,25 @@ namespace Task5
 
         static void Main(string[] args)
         {
-            int n = ReadInt();
+            int n = ReadInt("n=");
+            while (n < 2)
+            {
+                Console.WriteLine("Ошибка ввода. n должно быть >=2");
+                Console.ReadLine();
+                Console.Clear();
+                n = ReadInt("n=");
+            }
+
+            Console.Clear();
+
+            int[,] m = new int[n, n];
+
+            for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+            {
+                m[i, j] = ReadInt("m["+i+","+j+"]=");
+                Console.Clear();
+            }
         }
     }
 }
