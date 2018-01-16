@@ -81,6 +81,35 @@ namespace Task5
             }
         }
 
+        static void OutMas(int[] a, int n)
+        {
+            int i;
+            for (i = 0; i < n; i++) Console.Write("{0} ", a[i]);
+        }
+
+        static int[] Func(int[,] m, int[] b, int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                bool ok = false;
+                int j = 0;
+                while (j < n - 1 && m[i,j]<m[i,j+1])
+                {
+                    j++;
+                }
+
+                while (j < n - 1 && m[i, j] > m[i, j + 1])
+                {
+                    j++;
+                    ok = true;
+                }
+
+                if (j==n-1 && ok) b[i] = 1;
+                else b[i] = 0;
+            }
+            return b;
+        }
+
         static void Main(string[] args)
         {
             int n = ReadInt("n="), v;
@@ -95,6 +124,7 @@ namespace Task5
             Console.Clear();
 
             int[,] m = new int[n, n];
+            int[] b = new int[n];
 
             do
             {
@@ -110,7 +140,13 @@ namespace Task5
             else m = VvDvumMasVr(n);
             Console.Clear();
 
+            b=Func(m, b, n);
+
             OutMas(m,n);
+            Console.WriteLine();
+            Console.Write("Последовательность b: ");
+            OutMas(b,n);
+            
 
             Console.ReadLine();
         }
